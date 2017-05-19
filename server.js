@@ -1,4 +1,5 @@
 const makeTimeline = require('./utilities/makeTimeline');
+const retailerQuery = require('./utilities/retailerQuery');
 const queries = require('./db/queries');
 const cleanData = require('./utilities/cleanSearch');
 
@@ -39,6 +40,20 @@ app.get('/api/timeline', (req, res) => {
       res.status(200).send(data);
     }
   });
+});
+
+app.get('/api/retailers', (req, res) => {
+  let trend = req.query.fts;
+  retailerQuery(trend, (err, data) => {
+    if (err) {
+      console.log('ssAPI error');
+      res.status(500).send(err);
+    } else {
+      console.log('ssAPI: ', data);
+      res.status(200).send(data);
+    }
+  });
+
 });
 
 app.post('/api/history', (req, res) => {
