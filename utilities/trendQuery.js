@@ -1,6 +1,7 @@
 const googleTrends = require('google-trends-api');
 const backDateByMonths = require('./backDate');
 const sanitizeTrend = require('./sanitizeTrend');
+const axios = require ('axios');
 
 module.exports = (keyword, callback) => {
   const options = {
@@ -8,11 +9,12 @@ module.exports = (keyword, callback) => {
     startTime: backDateByMonths(15),
   };
 
-  googleTrends.interestOverTime(options)
-    .then(results => {
-      callback(null, sanitizeTrend(results));
-    })
-    .catch(err => {
-      callback(err, null);
-    });
+  axios.get('http://dumbgoogletrends.herokuapp.com/', {
+    //url: 'http://dummytrend.herokuapp.com/', 
+    params: options,
+  }).then(result => {
+    callback(null, sanitizeTrend(result.data));
+  }).catch(error => {
+    callback(error, null);
+  });
 };

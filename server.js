@@ -70,7 +70,7 @@ app.get('/api/history', (req, res) => {
 });
 
 app.get('/api/worker', (req, res) => {
-  res.send("Im awake!!");
+  res.send('Im awake!!');
 });
 
 app.use((req, res) => {
