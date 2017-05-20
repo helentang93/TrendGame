@@ -2,11 +2,12 @@ const makeTimeline = require('./utilities/makeTimeline');
 const retailerQuery = require('./utilities/retailerQuery');
 const queries = require('./db/queries');
 const cleanData = require('./utilities/cleanSearch');
+const passport = require('passport');
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-var worker = require('./workers/worker');
+const worker = require('./workers/worker');
 
 const app = express();
 const IP = '127.0.0.1';
@@ -16,6 +17,17 @@ app.use(express.static(__dirname + '/client/public'));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 worker.worker(`http://${IP}:${PORT}/api/worker`);
+
+require('./config/passport')(passport);
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+app.use(session({
+  secret: 'anystringoftext',
+  saveUninitialized: true,
+  resave: true
+}));
 
 if (!module.parent) {
   app.listen(PORT, () => {
@@ -90,4 +102,17 @@ app.use((req, res) => {
   res.status(404);
   res.sendFile(__dirname + '/client/public/404.html');
 });
+
+// Facebook Authentication Section 
+
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  successRedirect: '/arseniy',
+  failureRedirect: '/login'
+}));
+
+
+
+
 module.exports = app;

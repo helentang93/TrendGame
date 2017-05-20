@@ -53,3 +53,18 @@ db.schema.hasTable('stories').then(function (exists) {
     });
   }
 });
+
+// Table for Authentication
+db.schema.hasTable('users').then(function (exists) {
+  if (!exists) {
+    db.schema.createTable('users', function (user) {
+      user.string('id');
+      user.string('token');
+      user.string('email');
+      user.string('name');
+    }).then(function(table) {
+      console.log('created Table stories');
+    });
+  }
+});
+
