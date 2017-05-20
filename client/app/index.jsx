@@ -66,7 +66,6 @@ class App extends React.Component {
       params: { fts: trend }
     })
     .then(response => {
-      console.log('IN INDEX: ', response);
       if (response.data === undefined) {
         this.setState({
           retailers: <div className="text-center"><h6>No retailers were found.</h6></div>
