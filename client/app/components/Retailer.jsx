@@ -18,7 +18,7 @@ class Retailer extends React.Component {
 
     return (
       <div className="col-12 col-md-6">
-        <a href={this.props.retailer.clickUrl} className="card-clickable">
+        <a href={this.props.retailer.clickUrl} target="_blank" className="card-clickable">
           <div className="card">
             <img
               className="card-img-top img-fluid"
@@ -27,7 +27,7 @@ class Retailer extends React.Component {
             />
             <div className="card-block">
               <h3 className="h4 card-title">{this.props.retailer.brandedName}</h3>
-              <p className="card-text">{this.props.retailer.description}</p>
+              {/*<p className="card-text">{this.props.retailer.description}</p>*/}
             </div>
           </div>
         </a>

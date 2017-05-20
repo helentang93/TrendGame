@@ -1,6 +1,5 @@
-const googleTrends = require('google-trends-api');
 const backDateByMonths = require('./backDate');
-const sanitizeTrend = require('./sanitizeTrend');
+const sanitizeRelated = require('./sanitizeRelated');
 const axios = require ('axios');
 
 module.exports = (keyword, callback) => {
@@ -9,10 +8,10 @@ module.exports = (keyword, callback) => {
     startTime: backDateByMonths(15),
   };
 
-  axios.get('http://dumbgoogletrends.herokuapp.com/', {
+  axios.get('http://dummytrend.herokuapp.com/', {
     params: options,
   }).then(result => {
-    callback(null, sanitizeTrend(result.data));
+    callback(null, sanitizeRelated(result.data));
   }).catch(error => {
     callback(error, null);
   });

@@ -1,4 +1,5 @@
 const queryTrend = require('./trendQuery.js');
+const relatedQuery = require('./relatedQuery.js');
 const findPeaks = require('./peakAlgo.js');
 const getNews = require('./aylienApi');
 const makeFinalData = require('./stitchData');
@@ -9,29 +10,35 @@ const makeTimeline = (searchString, callback) => {
       callback(err, null);
 
     } else {
-      const peaks = findPeaks(timeSeries);
-
-      getNews(searchString, peaks, 'title', (err, peakStories) => {
+      relatedQuery(searchString, (err, relatedTopics) => {
         if (err) {
           callback(err, null);
+        } else {  
+          const peaks = findPeaks(timeSeries);
 
-        } else if (peakStories[0].stories[0] === undefined) {
-          getNews(searchString, peaks, 'body', (err, peakStories) => {
-
+          getNews(searchString, peaks, 'title', (err, peakStories) => {
             if (err) {
               callback(err, null);
+
+            } else if (peakStories[0].stories[0] === undefined) {
+              getNews(searchString, peaks, 'body', (err, peakStories) => {
+
+                if (err) {
+                  callback(err, null);
+                } else {
+                  const response = makeFinalData(timeSeries, peakStories, searchString, relatedTopics);
+                  callback(null, response);
+                }
+              });
+
             } else {
-              const response = makeFinalData(timeSeries, peakStories, searchString);
+              const response = makeFinalData(timeSeries, peakStories, searchString, relatedTopics);
               callback(null, response);
             }
           });
-
-        } else {
-          const response = makeFinalData(timeSeries, peakStories, searchString);
-          callback(null, response);
         }
       });
-    }
+    }  
   });
 };
 
