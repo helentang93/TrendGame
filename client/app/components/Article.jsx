@@ -12,6 +12,7 @@ class Article extends React.Component {
     this.setState({media: ''});
   }
 
+
   render() {
     return (
       <div className="col-12 col-md-6">

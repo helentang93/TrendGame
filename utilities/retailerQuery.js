@@ -7,12 +7,10 @@ module.exports = (trend, callback) => {
   const options = {
     keyword: trend,
   };
-  console.log('retailerQuery: ', `http://api.shopstyle.com/api/v2/products?pid=${key}&fts=${ trend }&offset=0&limit=10`);
   axios.get(`http://api.shopstyle.com/api/v2/products?pid=${key}&fts=${trend}&offset=0&limit=10`, {
     params: options
   }).then(result => {
-    console.log('retailerQuery results: ', result);
-    // callback(null, result.data);
+    callback(null, result.data.products);
   }).catch(error => {
     callback(error, null);
   });

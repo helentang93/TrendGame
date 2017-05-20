@@ -16,11 +16,11 @@ const RetailerList = (props) => {
               </h2>
             </div>
           </div>
-          {/*<div className="row">
-            {storyPoint.stories.map(story => {
-              return <Retailer key={story.url} story={story}/>;
+          <div className="row">
+            {props.foundRetailers.map(retailer => {
+              return <Retailer key={retailer.id} retailer={retailer}/>;
             })}
-          </div>*/}
+          </div>
         </div>
       </div>
     );

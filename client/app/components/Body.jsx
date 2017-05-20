@@ -12,7 +12,7 @@ const Body = ({ collectData, findRetailers, history, chartData, storyPoint }) =>
         <Input collectData={collectData} findRetailers={findRetailers}/>
         <History history={history} collectData={collectData}/>
         <TrendChart chartData={chartData} storyPoint={storyPoint}/>
-        <RetailerList trend={chartData.trend}/>
+        <RetailerList trend={chartData.trend} foundRetailers={chartData.retailers}/>
         <ArticleList trend={chartData.trend} storyPoint={storyPoint}/>
       </div>
     </div>

@@ -3,19 +3,22 @@ import React from 'react';
 class Retailer extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
-      media: this.props.story.media
+      media: props.retailer.image.sizes.Best.url
     };
+
   }
 
   handleBrokenImage(event) {
-    this.setState({media: ''});
+    this.setState({media: 'https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg'});
   }
 
   render() {
+
     return (
       <div className="col-12 col-md-6">
-        <a href={this.props.story.url} className="card-clickable">
+        <a href={this.props.retailer.clickUrl} className="card-clickable">
           <div className="card">
             <img
               className="card-img-top img-fluid"
@@ -23,8 +26,8 @@ class Retailer extends React.Component {
               onError={e => { this.handleBrokenImage(e); }}
             />
             <div className="card-block">
-              <h3 className="h4 card-title">{this.props.story.headline}</h3>
-              <p className="card-text">{this.props.story.summary}</p>
+              <h3 className="h4 card-title">{this.props.retailer.brandedName}</h3>
+              <p className="card-text">{this.props.retailer.description}</p>
             </div>
           </div>
         </a>
