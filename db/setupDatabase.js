@@ -8,7 +8,7 @@ var db = require('knex')({
   client: 'pg',
   connection: {
     host: '127.0.0.1',
-    user: 'helentang',
+    user: 'arseniy',
     password: '',
     database: 'trendgame'
   }
@@ -63,8 +63,10 @@ db.schema.hasTable('users').then(function (exists) {
       user.string('email');
       user.string('name');
     }).then(function(table) {
-      console.log('created Table stories');
+      console.log('created Table users');
     });
   }
 });
+
+module.exports.db = db;
 

@@ -3,6 +3,7 @@ const retailerQuery = require('./utilities/retailerQuery');
 const queries = require('./db/queries');
 const cleanData = require('./utilities/cleanSearch');
 const passport = require('passport');
+const session = require('express-session');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,21 +14,22 @@ const app = express();
 const IP = '127.0.0.1';
 const PORT = process.env.PORT || 8080;
 
+
 app.use(express.static(__dirname + '/client/public'));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
-worker.worker(`http://${IP}:${PORT}/api/worker`);
-
-require('./config/passport')(passport);
-
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-
 app.use(session({
   secret: 'anystringoftext',
   saveUninitialized: true,
   resave: true
 }));
+require('./config/passport')(passport);
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+worker.worker(`http://${IP}:${PORT}/api/worker`);
+
+
 
 if (!module.parent) {
   app.listen(PORT, () => {
@@ -94,23 +96,23 @@ app.get('/api/history', (req, res) => {
   });
 });
 
+// Facebook Authentication Section 
 app.get('/api/worker', (req, res) => {
   res.send('Im awake!!');
 });
+
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  }));
 
 app.use((req, res) => {
   res.status(404);
   res.sendFile(__dirname + '/client/public/404.html');
 });
-
-// Facebook Authentication Section 
-
-app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
-
-app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/arseniy',
-  failureRedirect: '/login'
-}));
 
 
 

@@ -124,7 +124,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <a href="/auth/facebook" class="btn btn-primary">Facebook</a>
+        <a href="/auth/facebook" className="btn btn-primary">Facebook</a>
         <hr/>
         <Layout
           chartData={this.state}
