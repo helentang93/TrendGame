@@ -20,3 +20,4 @@ const Body = ({ collectData, findRetailers, history, chartData, storyPoint }) =>
 };
 
 export default Body;
+
