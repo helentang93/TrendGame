@@ -17,6 +17,7 @@ export default class Input extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     document.querySelector('.search-input').blur();
+    this.props.findRetailers(this.state.trend);
     this.props.collectData(this.state.trend);
   }
 

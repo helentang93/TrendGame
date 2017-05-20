@@ -2,16 +2,16 @@
 var axios = require('axios');
 let server = '/api/worker';
 
-var worker = function(server){
-   setInterval(()=>{
-        axios.get(server)
-        .then(response =>{
-            console.log("Success!");
-        })
-        .catch(error =>{
-            console.log("ERROR!", server);
-        });
-    }, 270000);
+var worker = function(server) {
+  setInterval(()=>{
+    axios.get(server)
+    .then(response =>{
+      console.log('Success!');
+    })
+    .catch(error =>{
+      console.log('ERROR!', server);
+    });
+  }, 270000);
 };
 
 

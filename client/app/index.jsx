@@ -12,11 +12,13 @@ class App extends React.Component {
       start: '',
       end: '',
       trend: '',
+      retailers: {},
       storyPoint: {},
       loader: false,
       history: []
     };
     this.collectData = this.collectData.bind(this);
+    this.findRetailers = this.findRetailers.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +54,31 @@ class App extends React.Component {
     })
     .catch(error => {
       console.error(error);
+    });
+  }
+
+  findRetailers(trend) {
+    this.setState({
+      loader: <div className="text-center"><Loader color="#dc3c3c" size="16px" margin="4px"/></div>,
+      retailers: {}
+    });
+    axios.get('/api/retailers', {
+      params: { fts: trend }
+    })
+    .then(response => {
+      console.log('IN INDEX: ', response);
+      if (response.data === undefined) {
+        this.setState({
+          retailers: <div className="text-center"><h6>No retailers were found.</h6></div>
+        });
+      } else {
+        this.setState({
+          retailers: response.data,
+        });
+      }
+    })
+    .catch(error => {
+      console.log(error);
     });
   }
 
@@ -98,6 +125,7 @@ class App extends React.Component {
     return (
       <Layout
         chartData={this.state}
+        findRetailers={this.findRetailers}
         collectData={this.collectData}
         storyPoint={this.state.storyPoint}
         history={this.state.history}

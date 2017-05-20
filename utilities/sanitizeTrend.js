@@ -2,7 +2,8 @@ module.exports = (rawTimeline) => {
   let parsedTimeline = {};
 
   try {
-    parsedTimeline = JSON.parse(rawTimeline);
+    parsedTimeline = rawTimeline;
+    // parsedTimeline = JSON.parse(rawTimeline);
   } catch (error) {
     throw error;
   }

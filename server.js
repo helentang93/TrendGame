@@ -1,4 +1,5 @@
 const makeTimeline = require('./utilities/makeTimeline');
+const retailerQuery = require('./utilities/retailerQuery');
 const queries = require('./db/queries');
 const cleanData = require('./utilities/cleanSearch');
 
@@ -41,6 +42,18 @@ app.get('/api/timeline', (req, res) => {
   });
 });
 
+app.get('/api/retailers', (req, res) => {
+  let trend = req.query.fts;
+  retailerQuery(trend, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+
+});
+
 app.post('/api/history', (req, res) => {
   let trend = req.body.search;
 
@@ -70,7 +83,7 @@ app.get('/api/history', (req, res) => {
 });
 
 app.get('/api/worker', (req, res) => {
-  res.send("Im awake!!");
+  res.send('Im awake!!');
 });
 
 app.use((req, res) => {
