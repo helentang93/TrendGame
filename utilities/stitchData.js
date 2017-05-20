@@ -17,12 +17,13 @@ const makeTimeline = (timeline, stories) => {
   return timeline;
 };
 
-const makeResponse = (timeSeries, peakStories, searchString) => {
-  const timeline = makeTimeline(timeSeries, peakStories);
+const makeResponse = (timeSeries, peakStories, searchString, relatedTopics) => {
+  const timeline = makeTimeline(timeSeries, peakStories, relatedTopics);
 
   const response = {
     timeline: timeline,
-    trend: searchString.slice(1, -1)
+    trend: searchString.slice(1, -1),
+    relatedTopics: relatedTopics
   };
 
   return response;
