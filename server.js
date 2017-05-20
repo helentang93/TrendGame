@@ -96,7 +96,6 @@ app.get('/api/history', (req, res) => {
   });
 });
 
-// Facebook Authentication Section 
 app.get('/api/worker', (req, res) => {
   res.send('Im awake!!');
 });

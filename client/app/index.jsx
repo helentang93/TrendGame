@@ -15,7 +15,8 @@ class App extends React.Component {
       retailers: {},
       storyPoint: {},
       loader: false,
-      history: []
+      history: [],
+      relatedTopics: []
     };
     this.collectData = this.collectData.bind(this);
     this.findRetailers = this.findRetailers.bind(this);
@@ -47,7 +48,8 @@ class App extends React.Component {
           end: timeline[timeline.length - 1].date,
           storyPoint: this.findStoryPoint(timeline),
           data: this.makeChartPoints(timeline),
-          loader: false
+          loader: false,
+          relatedTopics: response.data.relatedTopics
         });
         return this.postSearchHistory(trend);
       }
@@ -66,7 +68,6 @@ class App extends React.Component {
       params: { fts: trend }
     })
     .then(response => {
-      console.log('IN INDEX: ', response);
       if (response.data === undefined) {
         this.setState({
           retailers: <div className="text-center"><h6>No retailers were found.</h6></div>
@@ -132,6 +133,7 @@ class App extends React.Component {
           collectData={this.collectData}
           storyPoint={this.state.storyPoint}
           history={this.state.history}
+          relatedTopics={this.state.relatedTopics}
         />
       </div>
     );

@@ -1,5 +1,3 @@
-const backDateByMonths = require('./backDate');
-const sanitizeTrend = require('./sanitizeTrend');
 const axios = require ('axios');
 const key = require('../lib/env/shopStyleApiKey');
 
