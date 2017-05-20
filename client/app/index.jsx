@@ -123,13 +123,17 @@ class App extends React.Component {
 
   render () {
     return (
-      <Layout
-        chartData={this.state}
-        findRetailers={this.findRetailers}
-        collectData={this.collectData}
-        storyPoint={this.state.storyPoint}
-        history={this.state.history}
-      />
+      <div>
+        <a href="/auth/facebook" className="btn btn-primary">Facebook</a>
+        <hr/>
+        <Layout
+          chartData={this.state}
+          findRetailers={this.findRetailers}
+          collectData={this.collectData}
+          storyPoint={this.state.storyPoint}
+          history={this.state.history}
+        />
+      </div>
     );
   }
 }
