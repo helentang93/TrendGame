@@ -14,8 +14,12 @@ const Body = ({ collectData, findRetailers, history, chartData, storyPoint, rela
         <History history={history} collectData={collectData} findRetailers={findRetailers}/>
         <RelatedTopics relatedTopics={relatedTopics} collectData={collectData} findRetailers={findRetailers}/>
         <TrendChart chartData={chartData} storyPoint={storyPoint}/>
-        <RetailerList trend={chartData.trend} foundRetailers={chartData.retailers}/>
-        <ArticleList trend={chartData.trend} storyPoint={storyPoint}/>
+        <div className="container-fluid">
+          <div className="row"> 
+            <RetailerList trend={chartData.trend} foundRetailers={chartData.retailers}/>
+            <ArticleList trend={chartData.trend} storyPoint={storyPoint}/>
+          </div>
+        </div>
       </div>
     </div>
   );

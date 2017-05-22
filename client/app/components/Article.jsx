@@ -1,5 +1,6 @@
 import React from 'react';
-import PocketButton from './pocketButton';
+import PocketButton from './PocketButton';
+import FacebookButton from './FacebookButton';
 
 class Article extends React.Component {
   constructor(props) {
@@ -17,7 +18,12 @@ class Article extends React.Component {
   render() {
     return (
       <div className="col-12 col-md-6">
-        <PocketButton link={this.state.link}/>
+        <div className="container-fluid">
+          <div className="row"> 
+            <FacebookButton link={this.state.link}/>
+            <PocketButton link={this.state.link}/>
+          </div>
+        </div>
         <a href={this.props.story.url} target="_blank" className="card-clickable">
           <div className="card">
             <img
